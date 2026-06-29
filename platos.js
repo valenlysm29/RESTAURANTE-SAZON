@@ -339,3 +339,4 @@ async function renderPlatos() {
     tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:2rem;"><div class="alert alert-danger">Error al actualizar el listado de platos de cocina.</div></td></tr>`;
   }
 }
+// Realizado por Adriana
