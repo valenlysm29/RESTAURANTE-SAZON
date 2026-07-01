@@ -49,6 +49,3 @@ Este proyecto fue desarrollado como una solución de gestión para un restaurant
 
 ---
 
-## 👨‍💻 Autor
-
-Pedro Jhair Cueva Tantalean
