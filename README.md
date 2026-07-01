@@ -1,20 +1,6 @@
 # 🍽️ SAZÓN
 # Sistema Web de Gestión para Restaurante
 
-<p align="center">
-  <img src="./dashboard.png" width="900px">
-</p>
-
-<p align="center">
-  <b>Plataforma web para la administración moderna de un restaurante.</b>
-</p>
-
-<p align="center">
-Sistema desarrollado para gestionar platos, pedidos, cocina y facturación mediante una interfaz moderna y eficiente.
-</p>
-
----
-
 # 🌐 Demo del Proyecto
 
 Puedes visualizar nuestra página desplegada en GitHub Pages:
