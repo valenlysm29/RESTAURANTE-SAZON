@@ -93,16 +93,26 @@ function buildAlergenosForm(selected = []) {
   wrap.querySelectorAll('input[type=checkbox]').forEach(cb =>
     cb.addEventListener('change', handleAlergenoChange)
   );
-  
-  if (esNinguno) disableOtherAlergenos(true);
+
+  // NOTA: ya NO se deshabilitan los demás checkboxes al iniciar.
+  // Antes aquí había: if (esNinguno) disableOtherAlergenos(true);
+  // Eso bloqueaba con `disabled` los checkboxes, y un checkbox disabled
+  // no dispara clics ni eventos "change" en el navegador — por eso
+  // nunca se podían seleccionar los alérgenos. Ahora todos quedan
+  // clicleables desde el inicio; la exclusión mutua con "Ninguno"
+  // se maneja en handleAlergenoChange.
 }
 
 function handleAlergenoChange(e) {
   if (e.target.value === 'Ninguno') {
+    // Si se marca "Ninguno", se desmarcan (sin deshabilitar) los demás
     disableOtherAlergenos(e.target.checked);
   } else {
-    const ningunoCb = document.querySelector('#alergenos-wrap input[value="Ninguno"]');
-    if (ningunoCb) ningunoCb.checked = false;
+    // Si se marca cualquier otro alérgeno, se desmarca "Ninguno" automáticamente
+    if (e.target.checked) {
+      const ningunoCb = document.querySelector('#alergenos-wrap input[value="Ninguno"]');
+      if (ningunoCb) ningunoCb.checked = false;
+    }
     const otroChecked = !!document.querySelector('#alergenos-wrap input[value="Otro"]:checked');
     const otroWrap = document.getElementById('otro-wrap');
     if (otroWrap) otroWrap.style.display = otroChecked ? 'block' : 'none';
@@ -110,11 +120,15 @@ function handleAlergenoChange(e) {
 }
 
 function disableOtherAlergenos(disable) {
+  // Ya no se usa `disabled` — solo se desmarcan los demás checkboxes
+  // cuando "Ninguno" se activa, para que sigan siendo clicleables siempre.
   document.querySelectorAll('#alergenos-wrap input[type=checkbox]').forEach(cb => {
-    if (cb.value !== 'Ninguno') { cb.disabled = disable; cb.checked = false; }
+    if (cb.value !== 'Ninguno' && disable) {
+      cb.checked = false;
+    }
   });
   const otroWrap = document.getElementById('otro-wrap');
-  if (otroWrap) otroWrap.style.display = 'none';
+  if (otroWrap && disable) otroWrap.style.display = 'none';
 }
 
 function getSelectedAlergenos() {
